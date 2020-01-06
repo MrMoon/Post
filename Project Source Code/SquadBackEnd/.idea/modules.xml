@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/squad.iml" filepath="$PROJECT_DIR$/squad.iml" />
+      <module fileurl="file://$PROJECT_DIR$/squad_rest_api/squad_rest_api.iml" filepath="$PROJECT_DIR$/squad_rest_api/squad_rest_api.iml" />
     </modules>
   </component>
 </project>
