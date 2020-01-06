@@ -42,16 +42,19 @@ The scope of this project is to establish connectivity between members of the gr
 *   Front-End
     *   HTML
     *   CSS
-    *   Java Script ( AngularJS )
+    *   Java Script
     *   AJAX 
+    *   Typescript
 *   Back-End
-    *   Java (Spring , Servlet , JSP , JSF , JPA , Hibernate , WebSocket)
+    *   Java (Spring , Servlet , JSP , JSF , JPA , Hibernate , WebSocket,...)
     *   PHP
     *   MongoDB
-    *   OrientDB
+    *   Neo4j
+    *   Redis
 *   Management and Server 
     *   Jenkins
     *   Docker
     *   G Suite
     *   Apache 
     *   Maven
+    *   XML
