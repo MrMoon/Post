@@ -1,0 +1,44 @@
+/* Structure */
+h2{
+  color: dodgerblue;
+  text-align: center;
+}
+
+.container {
+  text-align: center;
+  align-self: auto;
+  align-content: center;
+  width: 50%;
+  margin: 0 auto;
+  position: relative;
+  padding: 5px;
+}
+
+.welcome{
+  text-align: center;
+  color: dodgerblue;
+}
+
+.form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.full-width:last-child() {
+  margin-bottom: 20px;
+}
+
+.form-group {
+  align-content: center;
+  text-align: center;
+  margin: 10px 0;
+}
+
+.mat-flat-button {
+  margin: 5px;
+}

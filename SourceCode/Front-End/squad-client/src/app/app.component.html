@@ -1,0 +1,23 @@
+<nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+  <!-- Links -->
+  <ul class="navbar-nav">
+    <li class="nav-item">
+        <a routerLink="" class="nav-link" routerLinkActive="active">User List</a>
+    </li>
+    <li class="nav-item">
+        <a routerLink="friends" class="nav-link" routerLinkActive="active">Friends List</a>
+    </li>
+  </ul>
+</nav>
+<div class="container">
+  <div class="card">
+    <div class="card-body">
+  <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
+<footer class="footer">
+  <div class="container" style="text-align:center;margin:auto">
+      <span >All Rights Reserved 2020 @Squad.com</span>
+  </div>
+</footer>

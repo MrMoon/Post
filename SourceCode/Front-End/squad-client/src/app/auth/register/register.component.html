@@ -1,0 +1,56 @@
+﻿<div class="welcome">
+    <h1>Register</h1>
+</div>
+<div class="container mat-elevation-z8">
+    <div class="isLoading-shade" *ngIf="isisLoadingResults">
+        <mat-spinner *ngIf="isisLoadingResults"></mat-spinner>
+    </div>
+    <mat-card class="card">
+        <form [formGroup]="registerForm" (ngSubmit)="onFormSubmit(registerForm.value)">
+            <mat-form-field class="full-width">
+                <input matInput type="name" placeholder="Enter Your Full Name" formControlName="name" [errorStateMatcher]="matcher">
+                <mat-error>
+                    <span *ngIf="!registerForm.get('name').valid && registerForm.get('name').touched">Please
+                        enter your Full Name</span>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="full-width">
+                <input matInput type="email" placeholder="example@domain.com" formControlName="email" [errorStateMatcher]="matcher">
+                <mat-error>
+                    <span *ngIf="!registerForm.get('email').valid && registerForm.get('email').touched">Please Enter a Valid E-Mail</span>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="full-width">
+                <input matInput type="password" placeholder="You Must at least have 6 characters" formControlName="password" [errorStateMatcher]="matcher">
+                <mat-error>
+                    <span *ngIf="!registerForm.get('password').valid && registerForm.get('password').touched">Please Enter a Valid Password</span>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="full-width">
+                <input matInput type="password" placeholder="Confirm The Password" formControlName="passwordConfirm"
+                    [errorStateMatcher]="matcher">
+                <mat-error>
+                    <span *ngIf="!registerForm.get('password').valid && registerForm.get('password').touched">Please
+                        enter the same password</span>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="full-width">
+                <input matInput type="text" placeholder="Your Job Title" formControlName="jobTitle" [errorStateMatcher]="matcher">
+                <mat-error>
+                    <span *ngIf="!registerForm.get('jobTitle').valid && registerForm.get('jobTitle').touched">Please Enter Your Job Title</span>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="full-width">
+                <input matInput type="text" placeholder="Your Phone Number" formControlName="phoneNumber" [errorStateMatcher]="matcher">
+                <mat-error>
+                    <span *ngIf="!registerForm.get('phoneNumber').valid && registerForm.get('phoneNumber').touched">Please Enter A Valid Phone Number</span>
+                </mat-error>
+            </mat-form-field>
+            <div class="button-row">
+                <button [disabled]="isLoadingResults" class="btn btn-primary">Register</button>
+                <img *ngIf="isLoadingResults" class="pl-3" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                <a routerLink="/login" class="btn btn-link">Login</a>
+            </div>
+        </form>
+    </mat-card>
+</div>
