@@ -1,0 +1,9 @@
+<h2 style="color:dodgerblue">Friend List</h2>
+<div class="card w-auto">
+    <div class="card-body" *ngFor="let friend of friends">
+        <h5 class="card-title"><strong>Name: </strong>{{friend.name}}</h5>
+        <p class="card-text"><strong>E-Mail: </strong>{{friend.email}}</p>
+        <p class="card-text"><strong>Job Title: </strong>{{friend.jobTitle}}</p>
+        <hr />
+    </div>
+</div>

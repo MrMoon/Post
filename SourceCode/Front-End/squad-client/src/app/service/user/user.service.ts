@@ -21,7 +21,6 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   getAllUsers(): Observable<User[]> {
-    //return this.http.get<GetResponse>(environment.apiUrl + '/users/').pipe(map(response => response._embedded.users));
     return this.http.get<any>(environment.apiUrl + '/api/users/', { observe: 'response' }).pipe(map(data => data.body));
   }
 

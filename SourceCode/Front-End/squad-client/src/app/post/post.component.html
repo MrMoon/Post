@@ -1,0 +1,31 @@
+<mat-card class="card">
+    <form [formGroup]="postForm" (ngSubmit)="onFormSubmit(postForm.value)">
+        <mat-form-field class="full-width">
+            <input matInput type="name" placeholder="Enter the Post Name" formControlName="name" [errorStateMatcher]="matcher">
+            <mat-error>
+                <span *ngIf="!postForm.get('name').valid">Please Enter A Valid Name</span>
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width ">
+            <textarea cols="10" rows="10" matInput formControlName="description" [errorStateMatcher]="matcher" placeholder="Hello Today..."></textarea>
+            <mat-error>
+                <span *ngIf="!postForm.get('description').valid">Please Enter a Valid post</span>
+            </mat-error>
+        </mat-form-field>
+        <br/>
+        <button class="btn btn-primary">Post</button>
+    </form>
+</mat-card>
+<hr>
+<mat-card class="card" *ngFor="let post of posts">
+    <mat-card-header>
+        <mat-card-title>{{post.name}}</mat-card-title>
+        <mat-card-subtitle><strong>Date: </strong> {{post.date}}</mat-card-subtitle>
+        <mat-card-subtitle><strong>Author: </strong> {{post.author}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <p><strong>Description:</strong> {{post.description}}</p>
+    </mat-card-content>
+    <hr />
+</mat-card>
+<br>

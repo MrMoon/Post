@@ -15,9 +15,9 @@ import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.parameters.P;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -31,13 +31,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import javax.swing.text.html.Option;
 import javax.validation.constraints.NotBlank;
 
 import lombok.extern.slf4j.Slf4j;
 
 import static com.moon.squad.shared.ApplicationConstants.CACHE_EMAIL;
-import static com.moon.squad.shared.ApplicationConstants.CACHE_FRIEND;
 import static com.moon.squad.shared.ApplicationConstants.CACHE_ID;
 import static com.moon.squad.shared.ApplicationConstants.CACHE_USER;
 import static com.moon.squad.shared.ApplicationConstants.ERROR_EMAIL_NOT_FOUND;
@@ -58,6 +56,8 @@ public class UserServiceImp implements UserService, UserDetailsService {
     private UserRepository userRepository;
     @Autowired
     private RoleRepository roleRepository;
+    @Autowired
+    private MongoTemplate mongoTemplate;
 
     public UserServiceImp() {
     }
@@ -108,7 +108,6 @@ public class UserServiceImp implements UserService, UserDetailsService {
         }
     }
 
-    @CachePut (key = "#user.id")
     @Override
     public User saveOrUpdate(@NotNull User user) {
         log.info(saving(user.toString()));
@@ -157,13 +156,9 @@ public class UserServiceImp implements UserService, UserDetailsService {
     public void addFriend(String userId, String friendId) {
         Optional<User> user = userRepository.findById(userId);
         Optional<User> friend = userRepository.findById(friendId);
-        if(user.isPresent() && friend.isPresent()){
-            user.get().getFriends().add(friend.get());
-            friend.get().getFriends().add(user.get());
-            System.out.println(user.get().getFriends());
-            System.out.println(friend.get().getFriends());
-            userRepository.save(user.get());
-            userRepository.save(friend.get());
+        if (user.isPresent() && friend.isPresent()) {
+            user.get().addFriends(friend.get());
+            saveOrUpdate(user.get());
         }
     }
 
