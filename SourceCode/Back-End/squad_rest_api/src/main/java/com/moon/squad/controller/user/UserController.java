@@ -14,27 +14,29 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-import javax.swing.text.html.Option;
 import javax.validation.constraints.NotBlank;
 
+import lombok.Data;
+
 import static com.moon.squad.shared.ApplicationConstants.ADDED_SUCCESSFULLY;
-import static com.moon.squad.shared.ApplicationConstants.ALL_MAPPING;
-import static com.moon.squad.shared.ApplicationConstants.LOCALHOST_4200;
 import static com.moon.squad.shared.ApplicationConstants.DELETED_SUCCESSFULLY;
 import static com.moon.squad.shared.ApplicationConstants.ID;
 import static com.moon.squad.shared.ApplicationConstants.ID_MAPPING;
+import static com.moon.squad.shared.ApplicationConstants.LOCALHOST_4200;
 import static com.moon.squad.shared.ApplicationConstants.SLASH;
-import static com.moon.squad.shared.ApplicationConstants.USER_FRIENDS_MAPPING;
 import static com.moon.squad.shared.ApplicationConstants.USER_MAPPING;
+
+@Data
+class Two {
+    private String idUser;
+    private String idFriend;
+}
+
 
 @RestController
 @RequestMapping (USER_MAPPING)
@@ -72,10 +74,10 @@ public class UserController {
     }
 
     @CrossOrigin (origins = LOCALHOST_4200)
-    @GetMapping (value = "{userId}/{friendId}")
-    public ResponseEntity<?> addFriend(@PathVariable ("userId") @NotBlank @NotNull String userId, @PathVariable ("friendId") @NotBlank @NotNull String friendId) {
-        userService.addFriend(userId, friendId);
-        return ResponseEntity.ok("Friend " + ADDED_SUCCESSFULLY);
+    @PostMapping (value = "/add")
+    public ResponseEntity<?> addFriend(@NotNull @RequestBody Two two) {
+        userService.addFriend(two.getIdUser(), two.getIdFriend());
+        return new ResponseEntity<>(two.toString() + '\n' + ' ' + two.getClass().getSimpleName() + ' ' + ADDED_SUCCESSFULLY, HttpStatus.OK);
     }
 
     @GetMapping(value = {"email"})

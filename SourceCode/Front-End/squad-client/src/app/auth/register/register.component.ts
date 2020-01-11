@@ -32,7 +32,7 @@ export class RegisterComponent implements OnInit {
       'name': [null, [Validators.required, Validators.min(2)]],
       'password': [null, [Validators.required, Validators.min(6)]],
       'passwordConfirm': new FormControl(null, [Validators.required, Validators.min(6)]),
-      'email': [null, [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")]],
+      'email': [null, [Validators.required, Validators.pattern("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-z]{2,4}$")]],
       'jobTitle':[null , Validators.required],
       'phoneNumber': [null, [Validators.required, Validators.pattern("^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$")]],
     });

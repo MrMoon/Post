@@ -8,6 +8,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { log } from 'util';
 import { AppComponent } from '../app.component';
+import { FriendsService } from '../service/friends/friends.service';
 
 @Component({
   selector: 'app-feed',
@@ -20,16 +21,14 @@ export class FeedComponent implements OnInit {
   isLoadingResults = true;
   private user: User = JSON.parse(sessionStorage.getItem('user'));
 
-  constructor(private userService: UserService, private http: HttpClient
-    , private authService: AuthService , private router: Router) { }
+  constructor(private userService: UserService, private friendService: FriendsService) { }
 
   ngOnInit() {
     this.userService.getAllUsers().subscribe(data => this.users = data);
-    this.userService.getFriends(this.user.id).subscribe(data => this.user.friends = data);
   }
 
   addFriend(id: string){
-    console.log('Friend ID is ' + id);
-    this.userService.addFriend(this.user.id , id).subscribe(data => console.log(data));
+    console.log(id);
+    this.friendService.addFriend(id).subscribe(data => console.log(data));
   }
 }

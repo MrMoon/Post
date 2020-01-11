@@ -6,6 +6,8 @@ import { RegisterComponent } from './auth/register/register.component';
 import { AuthGuard } from './auth/auth.guard';
 import { ResultComponent } from './result/result.component';
 import { ModuleWithProviders } from '@angular/compiler/src/core';
+import { PostComponent } from './post/post.component';
+import { FriendsComponent } from './friends/friends.component';
 
 
 const routes: Routes = [
@@ -30,6 +32,18 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     component: ResultComponent,
     data: {title: 'Result'}
+  },
+  {
+    path: 'posts',
+    canActivate: [AuthGuard],
+    component: PostComponent,
+    data: {title: 'Post'}
+  },
+  {
+    path: 'friends',
+    canActivate: [AuthGuard],
+    component: FriendsComponent,
+    data: {title: 'Feed'}
   },
   {
     path: '**',

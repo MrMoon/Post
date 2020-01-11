@@ -33,6 +33,8 @@ abstract public class ApplicationConstants {
     public static final String PROJECT_MAPPING = API + "/projects" + ID_MAPPING;
     //Team
     public static final String TEAM_MAPPING = API + "/teams" + ID_MAPPING;
+    //Post
+    public static final String POST_MAPPING = API + "/posts";
     //Security
     public static final String AUTH_MAPPING = "/auth";
     public static final String SIGN_IN = "/login";
@@ -51,6 +53,7 @@ abstract public class ApplicationConstants {
     //Cache
     public static final String CACHE_USER = "User";
     public static final String CACHE_TEAM = "Team";
+    public static final String CACHE_POST = "Post";
     public static final String CACHE_TRACK = "Track";
     public static final String CACHE_TASK = "Track";
     public static final String CACHE_RESULT = "Result";

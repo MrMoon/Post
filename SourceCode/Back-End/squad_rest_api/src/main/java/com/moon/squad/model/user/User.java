@@ -1,7 +1,5 @@
 package com.moon.squad.model.user;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-
 import org.hibernate.validator.constraints.Length;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
@@ -10,8 +8,6 @@ import org.springframework.format.annotation.NumberFormat;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.validation.constraints.Email;
@@ -43,8 +39,16 @@ public class User implements Serializable {
     private String phoneNumber;
     @NotBlank (message = NOT_BLANK)
     private String type;
-    private List<User> friends = new ArrayList<>();
+    private ArrayList<User> friends;
     private boolean enabled;
     @DBRef
     private Set<Role> roles;
+
+    public User() {
+        friends = new ArrayList<>();
+    }
+
+    public void addFriends(User user) {
+        if (friends.stream().noneMatch(user1 -> user1.equals(user))) friends.add(user);
+    }
 }

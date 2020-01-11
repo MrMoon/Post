@@ -28,6 +28,8 @@ import { TaskComponent } from './task/task.component';
 import { ResultComponent } from './result/result.component';
 import { ReportComponent } from './report/report.component';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { PostComponent } from './post/post.component';
+import { FriendsComponent } from './friends/friends.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +41,9 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
     TeamsComponent,
     TaskComponent,
     ResultComponent,
-    ReportComponent
+    ReportComponent,
+    PostComponent,
+    FriendsComponent
   ],
   imports: [
     BrowserModule,

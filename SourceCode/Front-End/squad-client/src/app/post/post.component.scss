@@ -1,0 +1,39 @@
+.card{
+    margin: 20px;
+}
+
+.container {
+  width: 50%;
+  margin: 0 auto;
+  position: relative;
+  padding: 5px;
+}
+
+.welcome{
+  text-align: center;
+  color: dodgerblue;
+}
+
+
+.form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.full-width:last-child() {
+  margin-bottom: 10px;
+}
+
+.button-row {
+  text-align: center;
+  margin: 10px 0;
+}
+
+.mat-flat-button {
+  margin: 5px;
+}
