@@ -1,27 +1,36 @@
 import { Injectable } from '@angular/core';
-import { User } from '../../models/User';
 import { HttpClient, HttpResponse, HttpHeaders } from '@angular/common/http'
-import { Observable, of } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+import { Observable, of, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { headersToString } from 'selenium-webdriver/http';
-import { ApiResponse } from 'src/app/models/api.respone';
+import { User } from 'src/app/models/user/User';
+import { map, tap, catchError } from 'rxjs/operators';
 
+interface GetResponse {
+  _embedded: {
+    users: User[];
+    _links: { self: { href: string } };
+  };
+  users?: User[];
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
+  
+  constructor(private http: HttpClient) { }
 
-  private baseUrl: string = `${environment.apiUrl}/users`;
-  private header: HttpHeaders = new HttpHeaders();
-
-  constructor(private http: HttpClient) { 
-    this.header.set('Authorization', 'Bearer ' + sessionStorage.getItem('token'));
+  getAllUsers(): Observable<User[]> {
+    //return this.http.get<GetResponse>(environment.apiUrl + '/users/').pipe(map(response => response._embedded.users));
+    return this.http.get<any>(environment.apiUrl + '/api/users/', { observe: 'response' }).pipe(map(data => data.body));
   }
 
-  getUsers(): Observable<ApiResponse> {
-    return this.http.get<ApiResponse>(this.baseUrl , {headers : this.header});
+  getFriends(id: string): Observable<any>{
+    return this.http.get(environment.apiUrl + '/api/users/' + id + '/friends').pipe(map(data => console.log(data)));
+  }
+
+  addFriend(userId: string, friendId: string): Observable<any> {
+    return this.http.get(environment.apiUrl + '/api/users/' + userId + '/' + friendId).pipe(map(data => console.log(data)));
   }
 
 }

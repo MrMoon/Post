@@ -43,42 +43,50 @@ public class ProjectController {
         this.projectService = projectService;
     }
 
+    @CrossOrigin(origins = LOCALHOST_4200)
     @GetMapping (SLASH)
     public List<Project> getAllProjects() {
         return projectService.findAll();
     }
 
+    @CrossOrigin(origins = LOCALHOST_4200)
     @GetMapping (ORDER_MAPPING)
     public List<Project> getAllProjectsOrderByDeadline() {
         return projectService.findAllOrderByDeadline();
     }
 
+    @CrossOrigin(origins = LOCALHOST_4200)
     @GetMapping (DATE)
     public List<Project> getProjectByDeadline(@PathVariable (DATE) Date date) {
         return projectService.findAllByDeadline(date);
     }
 
+    @CrossOrigin(origins = LOCALHOST_4200)
     @GetMapping (ID_MAPPING)
     public Optional<Project> getProjectById(@PathVariable (ID) String id) {
         return projectService.findById(id);
     }
 
+    @CrossOrigin(origins = LOCALHOST_4200)
     @GetMapping (ID_MAPPING + USER_MAPPING)
     public List<User> getAllProjectUsers(@PathVariable (ID) String id) {
         return projectService.findAllProjectUsersByProjectId(id);
     }
 
+    @CrossOrigin(origins = LOCALHOST_4200)
     @GetMapping (ID_MAPPING + TASKS_MAPPING)
     public List<Task> getAllProjectTasks(@PathVariable (ID) String id) {
         return projectService.findAllProjectTasksByProjectId(id);
     }
 
+    @CrossOrigin(origins = LOCALHOST_4200)
     @PostMapping (SLASH)
     public ResponseEntity<?> saveOrUpdateProject(@RequestBody Project project) {
         projectService.saveOrUpdate(project);
         return new ResponseEntity<>(project.toString() + "\n " + project.getClass().getSimpleName() + ' ' + ADDED_SUCCESSFULLY, HttpStatus.OK);
     }
 
+    @CrossOrigin(origins = LOCALHOST_4200)
     @DeleteMapping (ID_MAPPING)
     public ResponseEntity<?> deleteProjectById(@PathVariable String id) {
         projectService.deleteUserById(id);

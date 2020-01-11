@@ -17,6 +17,7 @@ import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.parameters.P;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -30,11 +31,13 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import javax.swing.text.html.Option;
 import javax.validation.constraints.NotBlank;
 
 import lombok.extern.slf4j.Slf4j;
 
 import static com.moon.squad.shared.ApplicationConstants.CACHE_EMAIL;
+import static com.moon.squad.shared.ApplicationConstants.CACHE_FRIEND;
 import static com.moon.squad.shared.ApplicationConstants.CACHE_ID;
 import static com.moon.squad.shared.ApplicationConstants.CACHE_USER;
 import static com.moon.squad.shared.ApplicationConstants.ERROR_EMAIL_NOT_FOUND;
@@ -50,7 +53,6 @@ import static com.moon.squad.shared.LoggingConstants.saving;
 @Slf4j
 @CacheConfig (cacheNames = CACHE_USER)
 public class UserServiceImp implements UserService, UserDetailsService {
-
 
     @Autowired
     private UserRepository userRepository;
@@ -72,10 +74,11 @@ public class UserServiceImp implements UserService, UserDetailsService {
         return userRepository.findAllByOrderByName();
     }
 
+    @Cacheable
     @Override
     public List<User> findAllFriends(String id) {
         Optional<User> user = userRepository.findById(id);
-        return (user.isPresent()) ? user.get().getFriends() : new ArrayList<>();
+        return user.map(value -> new ArrayList<>(value.getFriends())).orElseGet(ArrayList::new);
     }
 
     @Cacheable (key = CACHE_EMAIL)
@@ -112,7 +115,8 @@ public class UserServiceImp implements UserService, UserDetailsService {
         user.setPassword(new BCryptPasswordEncoder(12).encode(user.getPassword()));
         user.setEnabled(true);
         Optional<Role> userRole = roleRepository.findByRole(USER);
-        if (userRole.isPresent()) user.setRoles(new HashSet<>(Collections.singletonList(userRole.get())));
+        if (userRole.isPresent())
+            user.setRoles(new HashSet<>(Collections.singletonList(userRole.get())));
         else try {
             throw new RoleException(ROLE_NOT_FOUND);
         } catch (RoleException e) {
@@ -147,6 +151,27 @@ public class UserServiceImp implements UserService, UserDetailsService {
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
         roles.forEach(role -> grantedAuthorities.add(new SimpleGrantedAuthority(role.getRole())));
         return new ArrayList<>(grantedAuthorities);
+    }
+
+    @Override
+    public void addFriend(String userId, String friendId) {
+        Optional<User> user = userRepository.findById(userId);
+        Optional<User> friend = userRepository.findById(friendId);
+        if(user.isPresent() && friend.isPresent()){
+            user.get().getFriends().add(friend.get());
+            friend.get().getFriends().add(user.get());
+            System.out.println(user.get().getFriends());
+            System.out.println(friend.get().getFriends());
+            userRepository.save(user.get());
+            userRepository.save(friend.get());
+        }
+    }
+
+    @Override
+    public String findUserIdByEmail(String email) {
+        Optional<User> user = userRepository.findByEmail(email);
+        if (user.isPresent()) return user.get().getId();
+        throw new UsernameNotFoundException("E-Mail Not Found");
     }
 
     @Override

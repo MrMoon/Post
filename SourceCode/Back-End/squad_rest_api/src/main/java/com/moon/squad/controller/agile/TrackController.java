@@ -38,22 +38,26 @@ public class TrackController {
         this.trackService = trackService;
     }
 
+    @CrossOrigin(origins = LOCALHOST_4200)
     @GetMapping (SLASH)
     public List<Track> getAllTracks() {
         return trackService.findAll();
     }
 
+    @CrossOrigin(origins = LOCALHOST_4200)
     @GetMapping (ID_MAPPING)
     public Optional<Track> getTrackById(@PathVariable (ID) String id) {
         return trackService.findById(id);
     }
 
+    @CrossOrigin(origins = LOCALHOST_4200)
     @PostMapping (SLASH)
     public ResponseEntity<?> saveOrUpdateTrack(@RequestBody Track track) {
         trackService.saveOrUpdate(track);
         return new ResponseEntity<>(track.toString() + "\n " + track.getClass().getSimpleName() + ' ' + ADDED_SUCCESSFULLY, HttpStatus.OK);
     }
 
+    @CrossOrigin(origins = LOCALHOST_4200)
     @DeleteMapping (ID_MAPPING)
     public ResponseEntity<?> deleteTrackById(@PathVariable String id) {
         trackService.deleteUserById(id);

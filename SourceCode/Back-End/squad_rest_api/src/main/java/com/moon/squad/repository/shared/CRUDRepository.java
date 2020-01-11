@@ -8,6 +8,7 @@ import org.springframework.data.repository.Repository;
 import java.util.List;
 import java.util.Optional;
 
+
 @NoRepositoryBean
 public interface CRUDRepository<T> extends MongoRepository<T, String>, Repository<T, String> {
     @NotNull List<T> findAll();

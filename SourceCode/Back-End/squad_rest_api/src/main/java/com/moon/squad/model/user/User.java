@@ -1,5 +1,7 @@
 package com.moon.squad.model.user;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 import org.hibernate.validator.constraints.Length;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
@@ -8,6 +10,7 @@ import org.springframework.format.annotation.NumberFormat;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 

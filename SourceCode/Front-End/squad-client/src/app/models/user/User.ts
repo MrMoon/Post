@@ -6,4 +6,5 @@ export class User{
     phoneNumber:string;
     type:string;
     token: string;
+    friends: User[];
 }

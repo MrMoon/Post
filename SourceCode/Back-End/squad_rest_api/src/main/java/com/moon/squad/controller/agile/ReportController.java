@@ -39,22 +39,26 @@ public class ReportController {
         this.reportService = reportService;
     }
 
+    @CrossOrigin(origins = LOCALHOST_4200)
     @GetMapping (SLASH)
     public List<Report> getAllReports() {
         return reportService.findAllByOrderByDate();
     }
 
+    @CrossOrigin(origins = LOCALHOST_4200)
     @GetMapping (ID_MAPPING)
     public @NotNull Optional<Report> getReportById(@PathVariable (ID) String id) {
         return reportService.findById(id);
     }
 
+    @CrossOrigin(origins = LOCALHOST_4200)
     @PostMapping (SLASH)
     public ResponseEntity<?> saveOrUpdateReport(@RequestBody Report report) {
         reportService.saveOrUpdate(report);
         return new ResponseEntity<>(report.toString() + "\n " + Report.class.getSimpleName() + ' ' + ADDED_SUCCESSFULLY, HttpStatus.OK);
     }
 
+    @CrossOrigin(origins = LOCALHOST_4200)
     @DeleteMapping (ID_MAPPING)
     public ResponseEntity<?> deleteReportById(@PathVariable String id) {
         reportService.deleteUserById(id);

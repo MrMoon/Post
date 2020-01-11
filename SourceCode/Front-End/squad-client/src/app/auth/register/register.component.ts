@@ -20,13 +20,12 @@ export class RegisterComponent implements OnInit {
   jobTitle: string = '';
   passwordConfirm: string = '';
   phoneNumber: string = '';
+  type: string = 'User';
   isLoadingResults: boolean = false;
   matcher = new MyErrorStateMatcher();
   returnUrl: string = 'login';
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private authService: AuthService) {
-    if (this.authService.currentUserValue) this.router.navigate(['feed']);
-  }
+  constructor(private formBuilder: FormBuilder, private router: Router, private authService: AuthService) { }
 
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
@@ -35,16 +34,16 @@ export class RegisterComponent implements OnInit {
       'passwordConfirm': new FormControl(null, [Validators.required, Validators.min(6)]),
       'email': [null, [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")]],
       'jobTitle':[null , Validators.required],
-      'phoneNumber': [null, [Validators.required, Validators.pattern("^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$")]]
+      'phoneNumber': [null, [Validators.required, Validators.pattern("^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$")]],
     });
   }
 
   onFormSubmit(form: NgForm) {
+    if (this.registerForm.invalid) return;
     this.authService.register(form).pipe(first()).subscribe(data => {
       this.router.navigate([this.returnUrl]);
     }, (error) => {
       console.log(error);
-      alert(error.error);
     });
   }
 

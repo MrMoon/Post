@@ -7,6 +7,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -15,25 +16,35 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import static com.moon.squad.shared.ApplicationConstants.NOT_BLANK;
 import static com.moon.squad.shared.ApplicationConstants.NOT_EMPTY;
 import static com.moon.squad.shared.ApplicationConstants.NOT_NULL;
 
-@Data
 @Document
 public class Event implements Serializable {
 
     @Id
+    @Getter
+    @Setter
     private String id;
     @NotBlank (message = NOT_BLANK)
+    @Getter
+    @Setter
     private String name;
     @NotBlank
+    @Getter
+    @Setter
     @Length (min = 2, max = 10)
     private String type;
     @NotNull (message = NOT_NULL)
-    private Date date;
+    @Getter
+    private String date = new SimpleDateFormat("E, DD MMM YYYY HH:mm:ss z\t").format(new Date());
     @NotEmpty (message = NOT_EMPTY)
+    @Getter
+    @Setter
     private List<User> users;
 
     @Override

@@ -1,0 +1,24 @@
+<mat-card class="card" *ngFor="let result of results; index as i;">
+    <mat-card-header>
+        <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title>Result {{i + 1}}</mat-card-title>
+        <mat-card-subtitle><strong>Date: </strong> {{result.date}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <p><strong>Description:</strong> {{result.description}}</p>
+    </mat-card-content>
+    <hr />
+</mat-card>
+<br>
+<hr>
+<mat-card class="card">
+    <form [formGroup]="resultForm" (ngSubmit)="onFormSubmit(resultForm.value)">
+        <mat-form-field class="full-width ">
+            <textarea cols="50" rows="10" matInput  formControlName="description" [errorStateMatcher]="matcher" placeholder="The Result is... "></textarea>
+            <mat-error>
+                <span *ngIf="!resultForm.get('description').valid && resultForm.get('description').touched">Please Enter a Valid Result</span>
+            </mat-error>
+        </mat-form-field>
+        <button [disabled]="isLoadingResults" class="btn btn-primary">Create</button>
+    </form>
+</mat-card>

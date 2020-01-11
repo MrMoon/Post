@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of, BehaviorSubject } from 'rxjs';
 import { catchError, tap, map } from 'rxjs/operators';
-import { User } from 'src/app/models/User';
+import { User } from 'src/app/models/user/User';
 import { Router } from '@angular/router';
+import { AlertService } from '../alert/alert.service';
 
 const apiUrl = 'http://localhost:8081/auth/';
 
@@ -11,38 +12,27 @@ const apiUrl = 'http://localhost:8081/auth/';
   providedIn: 'root'
 })
 export class AuthService {
-  private currentUserSubject: BehaviorSubject<string>;
-  public currentUser: Observable<string>;
-  isLoggedIn:boolean = false;
-  redirectUrl:string; 
-  
-  constructor(private http:HttpClient , private router: Router) {
-    this.currentUserSubject = new BehaviorSubject<string>(sessionStorage.getItem('token'));
-    this.currentUser = this.currentUserSubject.asObservable();
-  }
+  isLoggedIn: boolean = false;
+  redirectUrl: string;
 
-  public get currentUserValue(): string{
-    return this.currentUserSubject.value;
-  }
+  constructor(private http: HttpClient, private router: Router ,private alertServie: AlertService) { }
 
   login(data: any): Observable<any> {
-    console.log(data);
-    return this.http.post<any>(apiUrl + 'login', data)
-      .pipe(
-        map(user => {
-          if(user && user.token){
-            let token = user.token;
-            this.currentUserSubject.next(user);
-            sessionStorage.setItem('token', 'Bearer ' + token);
-          }
-          return user;
-        }),
-        tap(_ => this.isLoggedIn = true),
-        catchError(this.handleError('login', []))
-      );
+    return this.http.post<any>(apiUrl + 'login', data).pipe(map(user => {
+      if (user && user.token) {
+        delete user.USER.password;
+        sessionStorage.setItem('user', JSON.stringify(user.USER));
+        sessionStorage.setItem('token', 'Bearer ' + user.token);
+      }
+      return user;
+    }),
+      tap(_ => this.isLoggedIn = true),
+      catchError(this.handleError('login', []))
+    );
   }
 
   register(data: any): Observable<any> {
+    this.alertServie.clear();
     console.log(data);
     return this.http.post<User>(apiUrl + 'register', data)
       .pipe(
@@ -54,26 +44,23 @@ export class AuthService {
 
   logout() {
     sessionStorage.removeItem('token');
-    this.currentUserSubject.next(null);
-    return this.router.navigate(['']);
+    sessionStorage.removeItem('user');
+    return this.router.navigate(['login']);
   }
 
 
-  isUserLoggedIn() {
+  isUserLoggedIn(): boolean {
     return !(sessionStorage.getItem('token') === null)
   }
 
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
-
-      console.error(error);
-      this.log(`${operation} failed: ${error.message}`);
-
+      this.alertServie.error(error);
       return of(result as T);
     };
   }
 
   private log(message: string) {
-    console.log(message);
+    this.alertServie.error(message);
   }
 }

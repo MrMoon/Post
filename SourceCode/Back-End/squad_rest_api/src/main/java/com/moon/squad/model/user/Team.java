@@ -9,6 +9,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.constraints.NotBlank;
@@ -26,6 +27,13 @@ public class Team implements Serializable {
     private List<Report> reports;
     private List<Event> events;
     private List<Project> projects;
+
+    public Team() {
+        users = new ArrayList<>();
+        reports = new ArrayList<>();
+        events = new ArrayList<>();
+        projects = new ArrayList<>();
+    }
 
     @Override
     public String toString() {

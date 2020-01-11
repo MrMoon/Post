@@ -10,7 +10,7 @@ public abstract class ConfigurationConstants {
     public static final int PORT_NUMBER = 6379;
     public static final String CACHE = "cache";
     //Security
-    public static final long VALIDITY_IN_MILLESECONDS = 3600000;
+    public static final long VALIDITY_IN_MILLESECONDS = 360000000;
     public static final String SECRET_KEY = "squadsecretkeyIsPrime2";
     public static final String ROLES = "roles";
     public static final String HEADER_AUTHORIZATION = "Authorization";

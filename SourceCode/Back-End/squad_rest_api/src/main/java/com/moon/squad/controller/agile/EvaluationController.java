@@ -39,22 +39,26 @@ public class EvaluationController {
         this.evaluationService = evaluationService;
     }
 
+    @CrossOrigin(origins = LOCALHOST_4200)
     @GetMapping (SLASH)
     public List<Evaluation> getAllEvaluations() {
         return evaluationService.findAllByOrdOrderByResults();
     }
 
+    @CrossOrigin(origins = LOCALHOST_4200)
     @GetMapping (value = ID_MAPPING)
     public Optional<Evaluation> getEvaluationById(@PathVariable (ID) String id) {
         return evaluationService.findById(id);
     }
 
+    @CrossOrigin(origins = LOCALHOST_4200)
     @PostMapping (SLASH)
     public ResponseEntity<?> saveOrUpdateEvaluation(@RequestBody Evaluation evaluation) throws RoleException {
         evaluationService.saveOrUpdate(evaluation);
         return new ResponseEntity<>(evaluation.toString() + "\n " + evaluation.getClass().getSimpleName() + ' ' + ADDED_SUCCESSFULLY, HttpStatus.OK);
     }
 
+    @CrossOrigin(origins = LOCALHOST_4200)
     @DeleteMapping (value = ID_MAPPING)
     public ResponseEntity<?> deleteEvaluationById(@PathVariable String id) {
         evaluationService.deleteUserById(id);

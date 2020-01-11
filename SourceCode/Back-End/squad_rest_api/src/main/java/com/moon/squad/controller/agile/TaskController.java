@@ -36,22 +36,26 @@ public class TaskController {
         this.taskService = taskService;
     }
 
+    @CrossOrigin(origins = LOCALHOST_4200)
     @GetMapping (SLASH)
     public List<Task> getAllTasks() {
         return taskService.findAllByOrderByDate();
     }
 
+    @CrossOrigin(origins = LOCALHOST_4200)
     @GetMapping (ID_MAPPING)
     public Optional<Task> getTaskById(@PathVariable (ID) String id) {
         return taskService.findById(id);
     }
 
+    @CrossOrigin(origins = LOCALHOST_4200)
     @PostMapping (SLASH)
     public ResponseEntity<?> saveOrUpdateTask(@RequestBody Task task) {
         taskService.saveOrUpdate(task);
         return new ResponseEntity<>(task.toString() + "\n " + task.getClass().getSimpleName() + ' ' + ADDED_SUCCESSFULLY, HttpStatus.OK);
     }
 
+    @CrossOrigin(origins = LOCALHOST_4200)
     @DeleteMapping (ID_MAPPING)
     public ResponseEntity<?> deleteTaskById(@PathVariable String id) {
         taskService.deleteUserById(id);

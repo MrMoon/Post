@@ -7,7 +7,7 @@ abstract public class ApplicationConstants {
     public static final String API = "/api";
     public static final String SLASH = "/";
     public static final String LOCALHOST_4200 = "http://localhost:4200";
-    public static final String ALL_MAPPING = "http://localhost:4200";
+    public static final String ALL_MAPPING = "*";
     public static final String ID_MAPPING = "/{id}";
     public static final String NAME_MAPPING = "/{name}";
     public static final String JOB_TITLE_MAPPING = "/{jobTitle}";
@@ -18,21 +18,21 @@ abstract public class ApplicationConstants {
     public static final String USER_MAPPING = API + "/users";
     public static final String USER_FRIENDS_MAPPING = API + "/friends";
     //Result
-    public static final String RESULT_MAPPING = API + "/results";
+    public static final String RESULT_MAPPING = API + "/results" + ID_MAPPING;
     //Report
-    public static final String REPORT_MAPPING = API + "/reports";
+    public static final String REPORT_MAPPING = API + "/reports" + ID_MAPPING;
     //Evaluation
-    public static final String EVALUATION_MAPPING = API + "/evaluation";
+    public static final String EVALUATION_MAPPING = API + "/evaluation" + ID_MAPPING;
     //Event
-    public static final String EVENT_MAPPING = API + "/events";
+    public static final String EVENT_MAPPING = API + "/events" + ID_MAPPING;
     //Track
-    public static final String TRACK_MAPPING = API + "/tracks";
+    public static final String TRACK_MAPPING = API + "/tracks" + ID_MAPPING;
     //Tasks
-    public static final String TASKS_MAPPING = API + "/tasks";
+    public static final String TASKS_MAPPING = API + "/tasks" + ID_MAPPING;
     //Project
-    public static final String PROJECT_MAPPING = API + "/projects";
+    public static final String PROJECT_MAPPING = API + "/projects" + ID_MAPPING;
     //Team
-    public static final String TEAM_MAPPING = API + "/teams";
+    public static final String TEAM_MAPPING = API + "/teams" + ID_MAPPING;
     //Security
     public static final String AUTH_MAPPING = "/auth";
     public static final String SIGN_IN = "/login";
@@ -60,6 +60,7 @@ abstract public class ApplicationConstants {
     public static final String CACHE_EVALUATION = "Evaluation";
     public static final String CACHE_ID = "#id";
     public static final String CACHE_EMAIL = "#email";
+    public static final String CACHE_FRIEND = "#friend";
     public static final String CACHE_DATE = "#date";
     //Security
     public static final String USER = "USER";

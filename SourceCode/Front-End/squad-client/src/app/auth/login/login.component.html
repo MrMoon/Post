@@ -1,27 +1,28 @@
-﻿﻿<h2>Login</h2>
-<div class="container mat-elevation-z8">
-    <div class="loading-shade" *ngIf="isLoadingResults">
-        <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
-    </div>
-    <mat-card class="card">
-        <form [formGroup]="loginForm" (ngSubmit)="onFormSubmit(loginForm.value)">
-            <mat-form-field class="full-width ">
-                <input matInput type="email" placeholder="E-Mail" formControlName="email" [errorStateMatcher]="matcher">
-                <mat-error>
-                    <span *ngIf="!loginForm.get('email').valid && loginForm.get('email').touched">Please Enter a Valid E-Mail</span>
-                </mat-error>
-            </mat-form-field>
-            <mat-form-field class="full-width">
-                <input matInput type="password" placeholder="Password" formControlName="password" [errorStateMatcher]="matcher">
-                <mat-error>
-                    <span *ngIf="!loginForm.get('password').valid && loginForm.get('password').touched">Please Enter a Valid Password</span>
-                </mat-error>
-            </mat-form-field>
-            <div class="form-group">
-                <button [disabled]="isLoadingResults" class="btn btn-primary">Login</button>
-                <img *ngIf="isLoadingResults" class="pl-3" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-                <a routerLink="/register" class="btn btn-link">Register</a>
-            </div>
-        </form>
-    </mat-card>
-</div>
+﻿﻿<h2 >Login</h2 >
+<div class = "container mat-elevation-z8" >
+  <div class = "loading-shade" *ngIf = "isLoadingResults" >
+    <mat-spinner *ngIf = "isLoadingResults" ></mat-spinner >
+  </div >
+  <mat-card class = "card" >
+    <form [formGroup] = "loginForm" (ngSubmit) = "onFormSubmit(loginForm.value)" >
+      <mat-form-field class = "full-width " >
+        <input matInput type = "email" placeholder = "E-Mail" formControlName = "email" [errorStateMatcher] = "matcher" >
+        <mat-error >
+          <span *ngIf = "!loginForm.get('email').valid && loginForm.get('email').touched" >Please Enter a Valid E-Mail</span >
+        </mat-error >
+      </mat-form-field >
+      <mat-form-field class = "full-width" >
+        <input matInput type = "password" placeholder = "Password" formControlName = "password" [errorStateMatcher] = "matcher" >
+        <mat-error >
+          <span *ngIf = "!loginForm.get('password').valid && loginForm.get('password').touched" >Please Enter a Valid Password</span >
+        </mat-error >
+      </mat-form-field >
+      <div class = "form-group" >
+        <button [disabled] = "isLoadingResults" class = "btn btn-primary" >Login</button >
+        <img *ngIf = "isLoadingResults" class = "pl-3" src = "data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" alt = "loading" />
+        <a routerLink = "/register" class = "btn btn-link" >Register</a >
+      </div >
+      <alert></alert>
+    </form >
+  </mat-card >
+</div >

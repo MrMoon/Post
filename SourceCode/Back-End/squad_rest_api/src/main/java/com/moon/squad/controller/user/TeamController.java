@@ -46,47 +46,56 @@ public class TeamController {
         this.teamService = teamService;
     }
 
+    @CrossOrigin(origins = LOCALHOST_4200)
     @GetMapping (SLASH)
     public List<Team> getAllTeams() {
         return teamService.findAllByOrderByTeamName();
     }
 
+    @CrossOrigin(origins = LOCALHOST_4200)
     @GetMapping (ID_MAPPING)
     public Optional<Team> getTeamById(@PathVariable (ID) String id) {
         return teamService.findById(id);
     }
 
+    @CrossOrigin(origins = LOCALHOST_4200)
     @GetMapping (NAME_MAPPING)
     public List<Team> getTeamByName(@PathVariable (NAME) String name) {
         return teamService.findAllByTeamName(name);
     }
 
+    @CrossOrigin(origins = LOCALHOST_4200)
     @GetMapping (ID_MAPPING + USER_MAPPING)
     public List<User> getAllTeamMembers(@PathVariable (ID) String id) {
         return teamService.findAllTeamMembersByTeamId(id);
     }
 
+    @CrossOrigin(origins = LOCALHOST_4200)
     @GetMapping (ID_MAPPING + REPORT_MAPPING)
     public List<Report> getAllTeamReports(@PathVariable (ID) String id) {
         return teamService.findAllTeamReportsByTeamId(id);
     }
 
+    @CrossOrigin(origins = LOCALHOST_4200)
     @GetMapping (ID_MAPPING + EVENT_MAPPING)
     public List<Event> getAllTeamEvents(@PathVariable (ID) String id) {
         return teamService.findAllTeamEventsByTeamId(id);
     }
 
+    @CrossOrigin(origins = LOCALHOST_4200)
     @GetMapping (ID_MAPPING + PROJECT_MAPPING)
     public List<Project> getAllTeamProjects(@PathVariable (ID) String id) {
         return teamService.findAllTeamProjectsByTeamId(id);
     }
 
+    @CrossOrigin(origins = LOCALHOST_4200)
     @PostMapping (SLASH)
     public ResponseEntity<?> saveOrUpdateTeam(@RequestBody Team team) {
         teamService.saveOrUpdate(team);
         return new ResponseEntity<>(team.toString() + "\n " + team.getClass().getSimpleName() + ' ' + ADDED_SUCCESSFULLY, HttpStatus.OK);
     }
 
+    @CrossOrigin(origins = LOCALHOST_4200)
     @DeleteMapping (ID_MAPPING)
     public ResponseEntity<?> deleteTeamById(@PathVariable String id) {
         teamService.deleteUserById(id);

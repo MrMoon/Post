@@ -17,12 +17,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+import javax.swing.text.html.Option;
 import javax.validation.constraints.NotBlank;
 
 import static com.moon.squad.shared.ApplicationConstants.ADDED_SUCCESSFULLY;
+import static com.moon.squad.shared.ApplicationConstants.ALL_MAPPING;
 import static com.moon.squad.shared.ApplicationConstants.LOCALHOST_4200;
 import static com.moon.squad.shared.ApplicationConstants.DELETED_SUCCESSFULLY;
 import static com.moon.squad.shared.ApplicationConstants.ID;
@@ -33,7 +38,7 @@ import static com.moon.squad.shared.ApplicationConstants.USER_MAPPING;
 
 @RestController
 @RequestMapping (USER_MAPPING)
-@CrossOrigin(LOCALHOST_4200)
+@CrossOrigin (origins = LOCALHOST_4200)
 public class UserController {
 
     private final UserService userService;
@@ -43,19 +48,39 @@ public class UserController {
         this.userService = userService;
     }
 
+    @GetMapping (value = "helloWorld")
+    public String helloWorld() {
+        return "Hello World From " + UserController.class.getSimpleName();
+    }
+
+    @CrossOrigin (origins = LOCALHOST_4200)
     @GetMapping (value = SLASH)
     public List<User> getAllUsers() {
         return userService.findAllByOrderByName();
     }
 
+    @CrossOrigin (origins = LOCALHOST_4200)
     @GetMapping (value = ID_MAPPING)
     public @NotNull Optional<User> getUserById(@PathVariable (ID) String id) {
         return userService.findById(id);
     }
 
-    @GetMapping(value = USER_FRIENDS_MAPPING)
-    public List<User> getUserFriends(@PathVariable(ID) @NotNull @NotBlank String id){
+    @CrossOrigin (origins = LOCALHOST_4200)
+    @GetMapping (value = "{id}/friends")
+    public List<User> getUserFriends(@PathVariable (ID) @NotNull @NotBlank String id) {
         return userService.findAllFriends(id);
+    }
+
+    @CrossOrigin (origins = LOCALHOST_4200)
+    @GetMapping (value = "{userId}/{friendId}")
+    public ResponseEntity<?> addFriend(@PathVariable ("userId") @NotBlank @NotNull String userId, @PathVariable ("friendId") @NotBlank @NotNull String friendId) {
+        userService.addFriend(userId, friendId);
+        return ResponseEntity.ok("Friend " + ADDED_SUCCESSFULLY);
+    }
+
+    @GetMapping(value = {"email"})
+    public String getUserId(@PathVariable("email") String email){
+        return userService.findUserIdByEmail(email);
     }
 
     @PostMapping (value = SLASH)

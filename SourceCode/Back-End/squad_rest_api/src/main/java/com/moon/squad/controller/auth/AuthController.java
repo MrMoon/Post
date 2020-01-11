@@ -14,6 +14,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,12 +26,14 @@ import java.util.Optional;
 
 import static com.moon.squad.shared.ApplicationConstants.ADDED_SUCCESSFULLY;
 import static com.moon.squad.shared.ApplicationConstants.AUTH_MAPPING;
+import static com.moon.squad.shared.ApplicationConstants.ID;
 import static com.moon.squad.shared.ApplicationConstants.LOCALHOST_4200;
 import static com.moon.squad.shared.ApplicationConstants.EMAIL;
 import static com.moon.squad.shared.ApplicationConstants.MESSAGE;
 import static com.moon.squad.shared.ApplicationConstants.SIGN_IN;
 import static com.moon.squad.shared.ApplicationConstants.SIGN_UP;
 import static com.moon.squad.shared.ApplicationConstants.TOKEN;
+import static com.moon.squad.shared.ApplicationConstants.USER;
 import static com.moon.squad.shared.ApplicationConstants.alreadyExist;
 
 @RestController
@@ -50,18 +53,20 @@ public class AuthController {
         this.userServiceImp = userServiceImp;
     }
 
+    @CrossOrigin (origins = LOCALHOST_4200)
     @PostMapping (SIGN_IN)
     public ResponseEntity<?> login(@NotNull @RequestBody com.moon.squad.model.user.User user) {
         try {
             String email = user.getEmail();
             Optional<User> u = userRepository.findByEmail(email);
             if(u.isPresent()){
+                User mainUser = u.get();
                 String id = u.get().getId();
                 authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, user.getPassword()));
-                String token = jwtUtil.createToken(email , id , userRepository.findByEmail(email).get().getRoles());
+                String token = jwtUtil.createToken(email , id , mainUser.getRoles());
                 Map<Object, Object> map = new HashMap<>();
-                map.put(EMAIL, email);
                 map.put(TOKEN, token);
+                map.put(USER , mainUser);
                 return ResponseEntity.ok(map);
             }
             throw new BadCredentialsException("Invalid email/password supplied");
@@ -70,6 +75,7 @@ public class AuthController {
         }
     }
 
+    @CrossOrigin (origins = LOCALHOST_4200)
     @PostMapping (SIGN_UP)
     public ResponseEntity<?> register(@NotNull @RequestBody com.moon.squad.model.user.User user) throws RoleException {
         Optional<com.moon.squad.model.user.User> isExisting = userRepository.findByEmail(user.getEmail());

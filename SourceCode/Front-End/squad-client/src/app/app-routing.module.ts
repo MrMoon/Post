@@ -4,6 +4,8 @@ import { FeedComponent } from './feed/feed.component';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { AuthGuard } from './auth/auth.guard';
+import { ResultComponent } from './result/result.component';
+import { ModuleWithProviders } from '@angular/compiler/src/core';
 
 
 const routes: Routes = [
@@ -11,7 +13,7 @@ const routes: Routes = [
     path:'',
     canActivate: [AuthGuard],
     component: FeedComponent,
-    data: {title: 'User Feed'}
+    data: {title: 'Feed'}
   },
   {
     path:'login',
@@ -22,8 +24,20 @@ const routes: Routes = [
     path:'register',
     component: RegisterComponent,
     data: {title: 'Register'}
+  },
+  {
+    path:'results',
+    canActivate: [AuthGuard],
+    component: ResultComponent,
+    data: {title: 'Result'}
+  },
+  {
+    path: '**',
+    redirectTo: '' 
   }
 ];
+
+export const routing: ModuleWithProviders = RouterModule.forRoot(routes)
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

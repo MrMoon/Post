@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FeedComponent } from './feed/feed.component';
@@ -19,9 +19,15 @@ import {
   MatIconModule,
   MatButtonModule,
   MatCardModule,
-  MatFormFieldModule
+  MatFormFieldModule,
 } from '@angular/material';
 import { AlertComponent } from './alert/alert.component';
+import { ErrorInterceptor } from './interceptors/error.interceptor';
+import { TeamsComponent } from './teams/teams.component';
+import { TaskComponent } from './task/task.component';
+import { ResultComponent } from './result/result.component';
+import { ReportComponent } from './report/report.component';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 @NgModule({
   declarations: [
@@ -29,7 +35,11 @@ import { AlertComponent } from './alert/alert.component';
     FeedComponent,
     LoginComponent,
     RegisterComponent,
-    AlertComponent
+    AlertComponent,
+    TeamsComponent,
+    TaskComponent,
+    ResultComponent,
+    ReportComponent
   ],
   imports: [
     BrowserModule,
@@ -46,15 +56,24 @@ import { AlertComponent } from './alert/alert.component';
     MatIconModule,
     MatButtonModule,
     MatCardModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    NgbModule,
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
       multi: true
+    },
+    { 
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptor, 
+      multi: true 
     }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }
+
+platformBrowserDynamic().bootstrapModule(AppModule)
+  .catch(err => console.error(err));

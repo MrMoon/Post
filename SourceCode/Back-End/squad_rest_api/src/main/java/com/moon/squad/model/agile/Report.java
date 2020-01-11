@@ -4,27 +4,35 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import static com.moon.squad.shared.ApplicationConstants.NOT_BLANK;
 import static com.moon.squad.shared.ApplicationConstants.NOT_NULL;
 
-@Data
 @Document
 public class Report implements Serializable {
 
     @Id
+    @Getter
+    @Setter
     private String id;
-    @NotNull (message = NOT_NULL)
-    private Date date;
+    @Getter
+    private String date = new SimpleDateFormat("E, DD MMM YYYY HH:mm:ss z\t").format(new Date());
     @NotBlank (message = NOT_BLANK)
+    @Getter
+    @Setter
     private String description;
     @NotNull (message = NOT_NULL)
+    @Getter
+    @Setter
     private Result result;
 
     @Override

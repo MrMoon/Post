@@ -1,34 +1,9 @@
-<div class="mat-flat-button">
-    <a mat-flat-button color="primary" (click)="logout()">Logout</a>
-</div>
-<div class="panel panel-primary">
-    <div class="panel-heading">
-        <h2 style="text-align:center">User List</h2>
-    </div>
-    <div class="panel-body">
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Full Name</th>
-                    <th>E-Mail</th>
-                    <th>Job Title</th>
-                    <th>Phone Number</th>
-                    <th>Type</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let user of users | async">
-                    <td>{{user.name}}</td>
-                    <td>{{user.email}}</td>
-                    <td>{{user.jobTotle}}</td>
-                    <td>{{user.phoneNumber}}</td>
-                    <td>{{user.type}}</td>
-                    <td>
-                        <button (click)="deleteUser(user.id)" class="btn btn-danger">Delete</button>
-                        <button (click)="userDetails(employee.id)" class="btn btn-info" style="margin-left: 10px">Details</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+<h2 style="color:dodgerblue;">{{user.name}} 's Home</h2>
+<div class="card w-auto">
+    <div class="card-body" *ngFor="let user of users">
+        <h5 class="card-title"><strong>Name: </strong>{{user.name}}</h5>
+        <p class="card-text"><strong>Job Title: </strong>{{user.jobTitle}}</p>
+        <button mat-raised-button (click)="addFriend(user.id)" class="btn btn-primary">Add Friend</button>
+        <hr />
     </div>
 </div>

@@ -16,6 +16,12 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import java.util.Arrays;
+import java.util.Collections;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -25,6 +31,7 @@ import static com.moon.squad.shared.ApplicationConstants.SIGN_IN;
 import static com.moon.squad.shared.ApplicationConstants.SIGN_UP;
 import static com.moon.squad.shared.ApplicationConstants.UNAUTHORIZED;
 import static com.moon.squad.shared.ApplicationConstants.USER;
+import static javax.servlet.http.HttpServletResponse.SC_UNAUTHORIZED;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 @Configuration
@@ -53,7 +60,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(AUTH_MAPPING + SIGN_IN).permitAll()
                 .antMatchers(API + "/**").hasAuthority(USER).anyRequest().authenticated()
                 .and().exceptionHandling().authenticationEntryPoint((httpServletRequest, httpServletResponse, e) -> httpServletResponse
-                .sendError(HttpServletResponse.SC_UNAUTHORIZED, UNAUTHORIZED))
+                .sendError(SC_UNAUTHORIZED, UNAUTHORIZED))
                 .and().apply(new JwtConfigurer(jwtUtil));
     }
 

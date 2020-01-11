@@ -8,6 +8,5 @@ import java.util.List;
 
 public interface ResultService extends CRUDService<Result> {
     List<Result> findAllByOrderByDate();
-
     List<Result> findAllByDate(Date date);
 }
