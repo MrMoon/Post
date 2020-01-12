@@ -74,6 +74,7 @@ public class ProjectController {
     }
 
     @CrossOrigin(origins = LOCALHOST_4200)
+    
     @GetMapping (ID_MAPPING + TASKS_MAPPING)
     public List<Task> getAllProjectTasks(@PathVariable (ID) String id) {
         return projectService.findAllProjectTasksByProjectId(id);

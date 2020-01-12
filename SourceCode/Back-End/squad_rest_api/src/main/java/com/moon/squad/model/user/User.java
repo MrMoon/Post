@@ -49,6 +49,6 @@ public class User implements Serializable {
     }
 
     public void addFriends(User user) {
-        if (friends.stream().noneMatch(user1 -> user1.equals(user))) friends.add(user);
+        if(friends.stream().noneMatch(user1 -> user1.getId().equals(user.getId()))) friends.add(user);
     }
 }

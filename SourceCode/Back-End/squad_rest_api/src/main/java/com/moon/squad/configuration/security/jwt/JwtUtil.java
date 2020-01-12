@@ -79,8 +79,8 @@ public class JwtUtil implements Serializable {
         return getExpirationDateFromToken(token).before(new Date());
     }
 
-    public String createToken(String email , String id , Set<Role> roles) {
-        Claims claims = Jwts.claims().setSubject(email).setId(id);
+    public String createToken(String email , Set<Role> roles) {
+        Claims claims = Jwts.claims().setSubject(email);
         claims.put(ROLES, roles);
         return Jwts.builder()
                 .setClaims(claims)

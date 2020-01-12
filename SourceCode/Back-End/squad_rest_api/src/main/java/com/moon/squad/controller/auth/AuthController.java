@@ -63,13 +63,12 @@ public class AuthController {
                 User mainUser = u.get();
                 String id = u.get().getId();
                 authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, user.getPassword()));
-                String token = jwtUtil.createToken(email , id , mainUser.getRoles());
+                String token = jwtUtil.createToken(email , mainUser.getRoles());
                 Map<Object, Object> map = new HashMap<>();
                 map.put(TOKEN, token);
                 map.put(USER , mainUser);
                 return ResponseEntity.ok(map);
-            }
-            throw new BadCredentialsException("Invalid email/password supplied");
+            } throw new BadCredentialsException("There is no info about this users");
         } catch (AuthenticationException e) {
             throw new BadCredentialsException("Invalid email/password supplied");
         }
